@@ -2,35 +2,42 @@ package in.bank;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class BankAppTest {
 
-	// private static final User User = null;
-
 	@Test
 	public void correctUsernameandPassword() {
-		boolean valid = UserManagement.Login("siva", "1234");
-		assertEquals(true, valid);
+		String userName = "Siva";
+		String password = "Siva@123";
+		boolean valid = UserManagement.Login(userName, password);
+		assertTrue(valid);
 
 	}
 
 	@Test
 	public void correctUsernamewrongPassword() {
-		boolean valid = UserManagement.Login("siva", "abcd");
-		assertEquals(false, valid);
+		String userName = "Siva";
+		String password = "1234";
+		boolean valid = UserManagement.Login(userName, password);
+		assertFalse(valid);
 	}
 
 	@Test
 	public void correctPasswordwrongUsername() {
-		boolean valid = UserManagement.Login("shiva", "1234");
-		assertEquals(false, valid);
+		String userName = "Arun";
+		String password = "Siva@123";
+		boolean valid = UserManagement.Login(userName, password);
+		assertFalse(valid);
 	}
 
 	@Test
 	public void wrongUsernameandPassword() {
-		boolean valid = UserManagement.Login("ponram", "abcd");
-		assertEquals(false, valid);
+		String userName = "Siva21";
+		String password = "Si123";
+		boolean valid = UserManagement.Login(userName, password);
+		assertFalse(valid);
 	}
 
 }

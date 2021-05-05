@@ -6,11 +6,19 @@
 	<artifactId>BankApplication</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<dependencies>
-  <dependency>
-    <groupId>junit</groupId>
-    <artifactId>junit</artifactId>
-    <version>4.13.2</version>
-    <scope>test</scope>
-</dependency>  
-  </dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.2</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<properties>
+		<sonar.projectKey>SivaSS-crypto_Bank-App</sonar.projectKey>
+		<sonar.organization>sivass-crypto</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
 </project>

@@ -1,32 +1,44 @@
 package in.bank;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+import static org.junit.Assert.fail;
+
+import org.junit.Before;
 import org.junit.Test;
 
 public class WithdrawTestCase {
+
+	User user2 = null;
+
+	@Before
+	public void setup() {
+		System.out.println("##### setup ######");
+		user2 = new User();
+		user2.name = "Kumar";
+		user2.email = "viswakumar@gmail.com";
+		user2.password = "kumar158";
+		user2.address = "41/4,Anna Nagar, Chennai-6000028";
+		user2.mobileNo = 7362899l;
+		user2.balance = 20000l;
+		user2.accNo = 7654356789l;
+		user2.blockedAcc = false;
+	}
+
 	/**
 	 * Test Case for successful amount withdrawal
 	 */
 	@Test
 	public void isWithdrawAmountSuccess() {
-		User user2 = new User();
-		user2.name = "Kumar";
-		user2.email = "viswakumar@gmail.com";
-		user2.password = "kumar158";
-		user2.address = "41/4,Anna Nagar, Chennai-6000028";
-		user2.mobileNo = 7376362899l;
-		user2.balance = 25000l;
-		user2.accNo = 4578331721l;
-		user2.blockedAcc = false;
+
+		// User user2 = UserManagement.userDetails();
 		UserManagement.userList(user2);// Adding user2 details in ArrayList
-		UserManagement.displayUser();// display the user details before withdrawal
+		UserManagement.displayUser(user2);// display the user details before withdrawal
 		int amount = 500; // amount to withdraw
-		TransactionManagement.withdrawAmount(user2, amount);// withdrawal function
 		System.out.println("---Details After Withdraw Process--");
-		UserManagement.displayUser(); // display user details after withdrawal
-		boolean valid = TransactionManagement.withdrawAmount(user2, amount);
-		assertTrue(valid);
+		TransactionManagement.withdrawAmount(user2, amount);
+		UserManagement.displayUser(user2);// display user details after withdrawal
+		assertEquals(19500, user2.balance);
 
 	}
 
@@ -35,23 +47,20 @@ public class WithdrawTestCase {
 	 */
 	@Test
 	public void isWithdrawAmountFailed() {
-		User user2 = new User();
-		user2.name = "Kumar";
-		user2.email = "viswakumar@gmail.com";
-		user2.password = "kumar158";
-		user2.address = "41/4,Anna Nagar, Chennai-6000028";
-		user2.mobileNo = 7376362899l;
-		user2.balance = 25l;
-		user2.accNo = 4578331721l;
-		user2.blockedAcc = false;
+
 		UserManagement.userList(user2);// Adding user2 details in ArrayList
-		UserManagement.displayUser();// Display user details before withdrawal
-		int amount = 500;
-		TransactionManagement.withdrawAmount(user2, amount);// Withdrawal function
+
+		int amount = 500000;
+		// Withdrawal function
 		System.out.println("---Details After Withdraw Process--");
-		UserManagement.displayUser();// Display user details after withdrawal
-		boolean valid = TransactionManagement.withdrawAmount(user2, amount);
-		assertFalse(valid);
+		try {
+			TransactionManagement.withdrawAmount(user2, amount);
+			fail();
+
+		} catch (RuntimeException e) {
+			assertEquals("Insufficient Balance", e.getMessage());
+			assertEquals(20000, user2.balance);
+		}
 
 	}
 

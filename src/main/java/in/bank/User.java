@@ -6,8 +6,8 @@ public class User {
 	public String email;
 	public String password;
 	public String address;
-	public Long mobileNo;
-	public Long accNo;
+	public long mobileNo;
+	public long accNo;
 	public long balance;
 	public boolean blockedAcc;
 	

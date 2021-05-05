@@ -19,8 +19,9 @@ public class AccountNoValidation {
 		user1.accNo = 4578331720l;
 		user1.balance = 50000l;
 		user1.blockedAcc = false;
+		long userAccNo = 4578331720l;
 		UserManagement.userList(user1);//adding user details in ArrayList
-		boolean valid = TransactionManagement.validateAccount(user1,4578331720l);
+		boolean valid = TransactionManagement.validateAccount(user1,userAccNo);
 		assertTrue(valid);
 	}
 	/**
@@ -36,11 +37,12 @@ public class AccountNoValidation {
 		user1.password = "siva123";
 		user1.address = " 2B,Munayaduvar Nayanar Street,Palayamkottai-627002";
 		user1.mobileNo = 885272936712L;
-		user1.accNo = 4345l;
+		user1.accNo = 4578331720l;
 		user1.balance = 50000l;
 		user1.blockedAcc = false;
+		long userAccNo = 654497234;
 		UserManagement.userList(user1); //Adding user details in ArrayList
-		boolean valid = TransactionManagement.validateAccount(user1,654497l);
+		boolean valid = TransactionManagement.validateAccount(user1,userAccNo);
 		assertFalse(valid);
 	}
 }
