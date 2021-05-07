@@ -32,11 +32,11 @@ public class WithdrawTestCase {
 	public void isWithdrawAmountSuccess() {
 
 		// User user2 = UserManagement.userDetails();
-		UserManagement.userList(user2);// Adding user2 details in ArrayList
+		UserManagement.userDetails(user2);// Adding user2 details in ArrayList
 		UserManagement.displayUser(user2);// display the user details before withdrawal
 		int amount = 500; // amount to withdraw
 		System.out.println("---Details After Withdraw Process--");
-		TransactionManagement.withdrawAmount(user2, amount);
+		TransactionManagement.withdrawAmount(user2, amount);// withdraw(accNo1, accNo2, 1000);
 		UserManagement.displayUser(user2);// display user details after withdrawal
 		assertEquals(19500, user2.balance);
 
@@ -48,7 +48,7 @@ public class WithdrawTestCase {
 	@Test
 	public void isWithdrawAmountFailed() {
 
-		UserManagement.userList(user2);// Adding user2 details in ArrayList
+		UserManagement.userDetails(user2);// Adding user2 details in ArrayList
 
 		int amount = 500000;
 		// Withdrawal function

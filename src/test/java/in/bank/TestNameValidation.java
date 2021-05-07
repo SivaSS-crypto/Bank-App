@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class NameValidation {
+public class TestNameValidation {
 	/**
 	 * Test Cases for User Name validation
 	 */
@@ -12,7 +12,7 @@ public class NameValidation {
 	public void isNameValidated() {
 
 		String name = "Siva";// Correct name format variable
-		boolean valid = UserManagement.nameValidation(name);// Name validation
+		boolean valid = Validation.nameValidation(name);// Name validation
 		assertTrue(valid);
 
 	}
@@ -20,7 +20,7 @@ public class NameValidation {
 	@Test
 	public void isNameNotValid() {
 		String name = "1234";// Wrong name format variable
-		boolean valid = UserManagement.nameValidation(name);
+		boolean valid = Validation.nameValidation(name);
 		assertFalse(valid);
 
 	}
@@ -28,7 +28,7 @@ public class NameValidation {
 	@Test
 	public void isNameNull() {
 		String name = "    ";// Null name
-		boolean valid = UserManagement.passwordValidation(name);
+		boolean valid = Validation.passwordValidation(name);
 		assertFalse(valid);
 
 	}

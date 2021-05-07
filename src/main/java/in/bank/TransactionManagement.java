@@ -1,9 +1,11 @@
 package in.bank;
 
-//import javax.management.RuntimeErrorException;
-
 public class TransactionManagement {
 
+	//MAp ( accountNo, List< transaction> 
+	// DEBIT - Rs.1000
+	// CREDIT =- Rs.12000
+	// Mone
 	/**
 	 * Deposit an Amount for User account
 	 * 
@@ -11,21 +13,20 @@ public class TransactionManagement {
 	 * @param amount // amount to deposit
 	 */
 
-	public static void depositAmount(User user, int amount) {
-		int index = 0;
+	public static void depositAmount(User user, double amount) {
+
 		if (amount != 0 && amount > 0) {
-			for (User deposit : UserManagement.users) {
+			for (User deposit : UserManagement.userList) {
 				if (deposit.accNo == user.accNo) {
 
 					user.balance = amount + user.balance;// deposit calculation
 					break;
 
 				}
-				index++;
-				System.out.println(index);
+
 			}
 		} else {
-			System.out.println("Enter a valid amount");
+
 			throw new RuntimeException("Enter a valid amount");
 
 		}
@@ -37,10 +38,11 @@ public class TransactionManagement {
 	 * @param user2  //details of user2
 	 * @param amount //amount to withdraw
 	 */
-	public static boolean withdrawAmount(User user, int amount) {
+	public static boolean withdrawAmount(User user, float amount) {
 		boolean valid = false;
-		if (user.balance > amount && amount > 0) {
-			for (User withdraw : UserManagement.users) {
+
+		for (User withdraw : UserManagement.userList) {
+			if (user.balance > amount && amount > 0) {
 				if (withdraw.accNo == user.accNo) {
 
 					user.balance = user.balance - amount;// withdrawing calculation
@@ -48,12 +50,11 @@ public class TransactionManagement {
 					break;
 				}
 
-			}
-		} else {
-			System.out.println("Insufficient Balance");
-			throw new RuntimeException("Insufficient Balance");
-		}
+			} else {
 
+				throw new RuntimeException("Insufficient Balance");
+			}
+		}
 		return valid;
 	}
 
@@ -64,9 +65,9 @@ public class TransactionManagement {
 	 * @return
 	 */
 
-	public static boolean validateAccount(User user, long accNo) {
+	public static boolean validateAccount(long accNo) {
 		boolean valid = false;
-		for (User accountNo : UserManagement.users) {
+		for (User accountNo : UserManagement.userList) {
 			if (accountNo.accNo == accNo) {
 
 				valid = true;
@@ -83,14 +84,12 @@ public class TransactionManagement {
 	 * @param user2  //details of user2
 	 * @param amount //amount or transfer
 	 */
-	public static void transferAmount(User user1, User user2, int amount) {
+	public static void transferAmount(User user1, User user2, float amount) {
 		if (amount < user1.balance) {
 			TransactionManagement.withdrawAmount(user1, amount);
 			TransactionManagement.depositAmount(user2, amount);
-			UserManagement.displayUser(user1);// Display the details after transaction
-			UserManagement.displayUser(user2);
+			
 		} else {
-			System.out.println("Insufficient balance to transfer money");
 			throw new RuntimeException("Insufficient balance to transfer money");
 		}
 	}

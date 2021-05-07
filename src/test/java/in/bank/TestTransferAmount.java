@@ -10,7 +10,7 @@ public class TestTransferAmount {
 	User user2 = null;
 
 	@Before
-	public void startup() {
+	public void setup() {
 		user1 = new User();
 		user1.name = "Siva";
 		user1.email = "vishvajith257@gmail.com";
@@ -38,8 +38,8 @@ public class TestTransferAmount {
 	 */
 	@Test
 	public void isTransferAmountSuccess() {
-		UserManagement.userList(user1);
-		UserManagement.userList(user2);
+		UserManagement.userDetails(user1);
+		UserManagement.userDetails(user2);
 
 		int amount = 5000;
 		TransactionManagement.transferAmount(user1, user2, amount); // Transfer amount calculation
@@ -52,8 +52,8 @@ public class TestTransferAmount {
 	@Test
 	public void isTransferAmountFailed() {
 
-		UserManagement.userList(user1);
-		UserManagement.userList(user2);
+		UserManagement.userDetails(user1);
+		UserManagement.userDetails(user2);
 		int amount = 500000;
 		try {
 			TransactionManagement.transferAmount(user1, user2, amount); // Transfer amount calculation

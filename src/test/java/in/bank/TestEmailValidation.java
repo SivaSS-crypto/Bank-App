@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class EmailValidation {
+public class TestEmailValidation {
 	/**
 	 * Test Cases for Email Validation
 	 */
@@ -12,7 +12,7 @@ public class EmailValidation {
 	public void isEmailValidated() {
 
 		String email = "vishvajith257@gmail.com";// Correct Email format variable
-		boolean valid = UserManagement.emailValidation(email);// Email validation
+		boolean valid = Validation.emailValidation(email);// Email validation
 		assertTrue(valid);
 
 	}
@@ -21,7 +21,7 @@ public class EmailValidation {
 	public void isEmailNotValidated() {
 
 		String email = "vishvajith257gmail";// Wrong format of Email
-		boolean valid = UserManagement.emailValidation(email);
+		boolean valid = Validation.emailValidation(email);
 		assertFalse(valid);
 
 	}
@@ -30,7 +30,7 @@ public class EmailValidation {
 	public void isEmailNull() {
 
 		String email = " "; // Null Email
-		boolean valid = UserManagement.emailValidation(email);
+		boolean valid = Validation.emailValidation(email);
 		assertFalse(valid);
 
 	}

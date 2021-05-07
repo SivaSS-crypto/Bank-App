@@ -1,29 +1,65 @@
 package in.bank;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class UserManagement {
-	public static ArrayList<User> users = new ArrayList<User>(); // Creating a new ArrayList
+	public static ArrayList<User> userList = new ArrayList<User>(); // Creating a new ArrayList
 
-	static {
-		User user1 = new User();
-		user1.name = "Siva";
-		user1.email = "vishvajith257@gmail.com";
-		user1.password = "Siva@123";
-		users.add(user1);
-
-	}
-
+//	static {
+//		User user1 = new User();
+//		user1.accNo= 1;
+//		user1.name = "Siva";
+//		user1.email = "vishvajith257@gmail.com";
+//		user1.password = "Siva@123";
+//		user1.blockedAcc = false;
+//		user1.balance = 10000;
+//		userList.add(user1);
+//		
+//		User user2 = new User();
+//		user2.accNo= 2;
+//		user2.name = "Ramesh";
+//		user2.email = "vishvajith257@gmail.com";
+//		user2.password = "Siva@123";
+//		user2.blockedAcc = true;
+//		user2.balance = 50000;
+//		userList.add(user2);
+//	
+//	}
+	
 	/**
 	 * Add the user Details in ArrayList
 	 * 
 	 * @param list //Details of user
 	 */
-	public static void userList(User list) {
-
-		users.add(list); // Adding the user details in the ArrayList
+	public static boolean registerDetails(String name, String email, String password, String address, long mobileNo, long accNo, long balance)
+	 {  boolean valid = false;
+		if(
+		Validation.accountNumberValidation(accNo)&&
+		Validation.emailValidation(email)&&
+		Validation.mobileNumberValidation(mobileNo)&&
+		Validation.nameValidation(name)&&
+		Validation.passwordValidation(password)) {
+		
+		
+		
+		User user = new User();
+		user.name = name;
+		user.email = email;
+		user.password = password;
+		user.address = address;
+		user.mobileNo = mobileNo;
+		user.accNo = accNo;
+		user.balance = balance;
+		userList.add(user);
+		valid = true;
+		return valid;
+		}
+		
+		else
+		{
+			return valid;
+		}
+	 // Adding the user details in the ArrayList
 
 	}
 
@@ -34,11 +70,13 @@ public class UserManagement {
 	 * @param userPassword // Password of User
 	 * @return
 	 */
-	public static boolean Login(String userName, String userPassword) {
+	public static boolean loginValidation(String userName, String userPassword) {
 
 		boolean valid = false;
+		Validation.nameValidation(userName);
+		Validation.passwordValidation(userPassword);
 
-		for (User validation : UserManagement.users) {
+		for (User validation : userList) {
 			if (validation.name.equals(userName) && validation.password.equals(userPassword)) {
 
 				valid = true;
@@ -49,36 +87,26 @@ public class UserManagement {
 		return valid;
 	}
 
+	
 	/**
-	 * Display the Details of User1
+	 * Users in the ArrayList
+	 * @return
 	 */
-	public static void displayUser(User user) {
-		// for each loop to display the user1 details
-		for (User display : UserManagement.users) {
-			if (display.accNo == user.accNo) {
-				System.out.println("Name:" + display.name);
-				System.out.println("Address:" + display.address);
-				System.out.println("Mobile:" + display.mobileNo);
-				System.out.println("Email Id:" + display.email);
-				System.out.println("Your Balance Amount:" + display.balance);
-				System.out.println("none");
-				break;
-			}
-		}
+	public static ArrayList<User> getAllUsers() {
+		userList.size();
+		return userList;
 	}
-
+	
 	/**
 	 * Display All the Users detail
 	 */
 
 	public static void displayAllUsers() {
-		for (User display : UserManagement.users) {
+		for (User display : userList) {
 
-			System.out.println("Name:" + display.name);
-			System.out.println("Address:" + display.address);
-			System.out.println("Mobile:" + display.mobileNo);
-			System.out.println("Email Id:" + display.email);
-			System.out.println("Your Balance Amount:" + display.balance);
+			System.out.println(
+					"Name:" + display.name + "\n" + "Address:" + display.address + "\n" + "Mobile:" + display.mobileNo
+							+ "\n" + "Email Id:" + display.email + "\n" + "Your Balance Amount:" + display.balance);
 
 		}
 	}
@@ -96,59 +124,19 @@ public class UserManagement {
 		}
 		return value;
 	}
-
+	
 	/**
-	 * To validate the Users Email
+	 * To check if the account is active or blocked
 	 * 
-	 * @param Email //Mail Id
+	 * @param user //details of the user
 	 * @return
 	 */
-	public static boolean emailValidation(String Email) {
-
-		// Pattern declaration
-		String check = "\\b[\\w.%-]+@[-.\\w]+\\.[A-Za-z]{2,4}\\b";
-		// Business Logic
-		if (Email == null) {
-			return false;
-		}
-		Pattern patternForEmail = Pattern.compile(check);
-		Matcher matcherForEmail = patternForEmail.matcher(Email);
-		return matcherForEmail.matches();
-	}
-
-	/**
-	 * To validate the Users Name
-	 * 
-	 * @param name // Name of user
-	 * @return
-	 */
-	public static boolean nameValidation(String name) {
-
-		// Name Pattern Declaration
-		String regx = "[a-zA-Z]+\\.?";
-		Pattern pattern = Pattern.compile(regx, Pattern.CASE_INSENSITIVE);
-		Matcher matcher = pattern.matcher(name);
-		return matcher.find();
-
-	}
-
-	/**
-	 * To validate password of the user
-	 * 
-	 * @param password //password chosen by the user
-	 * @return
-	 */
-	public static boolean passwordValidation(String password) {
-
-		// Password Pattern Declaration
-		String check = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20}$";
-		if (password == null) {
-			return false;
-		}
-		Pattern passwordPattern = Pattern.compile(check);
-		Matcher passwordMatcher = passwordPattern.matcher(password);
-		return passwordMatcher.matches();
-
+	public static String accountStatus(Long accountNo) {
+		String value = "Your account is valid"; // String declaration
+//		if (user.blockedAcc) {
+//			value = "Your account is blocked";
+//		}
+		return value;
 	}
 
 }
